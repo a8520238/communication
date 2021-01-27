@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<header th:replace="header.html"></header>
+<link rel="stylesheet" th:href="@{/css/index.css}">
+<link rel="stylesheet" th:href="@{/css/letter.css}">
+<link rel="stylesheet" th:href="@{/css/detail.css}">
+
+<div id="main">
+    <div class="zg-wrap zu-main">
+        <ul class="letter-list">
+            <li th:each="conversation : ${conversations}" id="conversation-item-10005_622873">
+                <a class="letter-link" th:href="@{'/msg/detail?conversationId=' + ${conversation.get('message').getConversationId()}}"></a>
+                <div class="letter-info">
+                    <span th:text="${#dates.format(conversation.get('message').getCreateDate(), 'yyyy-MM-dd HH:mm:ss')}" class="l-time" ></span>
+                    <div class="l-operate-bar">
+                        <!--<a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">
+                        删除
+                        </a>-->
+                        <a th:text="'共' + ${conversation.get('message').getId()} + '条消息'" href="/msg/detail?$conversation.message.conversationId">
+                        </a>
+                    </div>
+                </div>
+                <div class="chat-headbox">
+                    <span th:text="${conversation.get('unread')}" class="msg-num">
+                    </span>
+                    <a class="list-head">
+                        <img alt="头像" th:src="@{${conversation.get('user').getHeadUrl()}}">
+                    </a>
+                </div>
+                <div class="letter-detail">
+                    <a th:text="${conversation.get('user').getName()}" title="通知" class="letter-name level-color-1">
+                    </a>
+                    <p th:text="${conversation.get('message').getContent()}" class="letter-brief">
+                    </p>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="/scripts/main/site/detail.js"></script>
+<footer th:replace="footer.html"></footer>
